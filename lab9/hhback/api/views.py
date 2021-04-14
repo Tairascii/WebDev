@@ -41,6 +41,8 @@ def vacancy_company(request, company_id):
 
 def top_ten(request):
     vacancies = Vacancy.objects.order_by('-salary')
+    if len(vacancies) > 10:
+        vacancies = vacancies[:10]
     vacancies_json = [vacancy.to_json() for vacancy in vacancies]
     return JsonResponse(vacancies_json, safe=False)
 
